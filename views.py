@@ -1,10 +1,16 @@
-from peewee import *
+
 from models import *
 from flask import Flask, render_template, request
-from random import random,choice
+from random import choice
 
 
 app = Flask(__name__)
+
+# datadata = [
+#     {
+#         'name' : 'game3', 'url': '/game'
+#     }
+# ]
 
 @app.route('/', methods=['GET','POST'])
 def index():
@@ -24,14 +30,15 @@ def feedback():
 
 @app.route('/game', methods = ['GET','POST'])
 def game():
+    ura = ''
     if request.method == 'POST':
         forms_ = dict(request.form)
         print(forms_)
         all_number = [i for i in range(1, 37)]
         colors = ['Красный', 'Черный']
         ruletka = ['0:Зеленый']
-        stavka = int(12)
-        lucky = input('Поставьте на какое-то число и цвет (пример: 16:Красный) --> ')
+        stavka = int(forms_['stavka'])
+        lucky = forms_['choose']
         win = 0
 
         for i in all_number:
@@ -40,17 +47,18 @@ def game():
 
         user = choice(ruletka)
         print(f'Выпало число  {user}')
-        if lucky == user:
-            if lucky == '0:Зеленый':
-                print(user)
-                total = stavka * 4
-                print(f'User won {total}')
+        if lucky == '0:Зеленый':
+            print(user)
+            total = stavka * 4
+            ura = f'User won {total}'
+        elif lucky == user:
             print(user)
             total = stavka * 2
-            print(f'User won {total}')
+            ura = f'User won {total}'
         else:
+            ura = f'You lose'
             print('You lose')
-    return render_template('game.html', data = total)
+    return render_template('game.html', ura=ura)
 
 
 if __name__ == '__main__':

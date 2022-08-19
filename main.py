@@ -1,4 +1,4 @@
-from random import random,choice
+from random import choice
 
 all_number = [i for i in range(1,37)]
 colors = ['Красный', 'Черный']

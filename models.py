@@ -1,8 +1,8 @@
 from peewee import *
 db = PostgresqlDatabase(
     'casino',  # Required by Peewee.
-    user='myuser',  # Will be passed directly to psycopg2.
-    password='mypass',  # Ditto.
+    user='rustam',  # Will be passed directly to psycopg2.
+    password='12345',  # Ditto.
     host='localhost')  # Ditto.
 
 
